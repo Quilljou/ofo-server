@@ -47,7 +47,7 @@ public class HandlerFactory {
 							if (iAnnotation != null) {
 								int cmd = iAnnotation.cmd();
 								Parameter[] params = m.getParameters();
-								if (!(params[0].getType() == int.class)
+								if (!(params[0].getType() == String.class)
 										|| !(BaseMessage.class.isAssignableFrom(params[1].getType()))) {
 									System.err.println("业务Handler函数参数必须遵循(int,BaseMessage)的格式");
 								} else {
@@ -74,7 +74,7 @@ public class HandlerFactory {
 	 * @param message
 	 * @param sessionId
 	 */
-	public void dispatch(BaseMessage message, int sessionId) {
+	public void dispatch(BaseMessage message, String sessionId) {
 		int cmd = message.getCmd();
 		MessageInvokeWrapper miw = invokeContainer.get(cmd);
 		if (miw != null) {

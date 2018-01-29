@@ -41,21 +41,17 @@ public class DispatchHandler extends LengthFieldBasedFrameDecoder {
 	 */
 	@Override
 	protected Object decode(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
-		for (int i = 0; i < msg.readableBytes(); i++) {
-			System.out.println(msg.getUnsignedByte(i));
-		}
 		msg = (ByteBuf) super.decode(ctx, msg);
-		System.out.println("after");
-		for (int i = 0; i < msg.readableBytes(); i++) {
-			System.out.println(msg.getUnsignedByte(i));
-		}
 		if (msg == null) {
 			return null;
 		} else {
 			if (msg != null) {
 				BaseMessage message = CodecFactory.getInstance().decode(ByteBufUtil.convert(msg));
+				// TODO: 29/01/2018 校验和
+				if(message == null) { // 校验和不通过
+					return null;
+				}
 				String sessionId = (String) (ctx.channel().attr(AttributeKey.valueOf("sessionId"))).get();
-				// TODO
 				if (sessionId == null) {
 					if (message.getCmd() == CmdConstant.REQ_LOGIN) {
 						ReqLogin login = (ReqLogin) message;
@@ -67,11 +63,12 @@ public class DispatchHandler extends LengthFieldBasedFrameDecoder {
 							ClientContainer container = ClientContainer.getInstance();
 							container.add(equipmentId, c);
 							ctx.channel().attr(AttributeKey.valueOf("sessionId")).set(equipmentId);
+							sessionId = equipmentId;
 						}
 					}
 				}
 //				HandleContext.getInstance().dispatch(1, message);
-				HandlerFactory.getInstance().dispatch(message, 1);
+				HandlerFactory.getInstance().dispatch(message, sessionId);
 			}
 		}
 		return null;

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.senninha.sserver.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -147,7 +148,10 @@ public class CodecFactory {
 	public BaseMessage decode(ByteBuffer buf){
 		//设置为小端模式
 		buf.order(ByteOrder.LITTLE_ENDIAN);
-		
+		// 校验和不通过
+//		if (!MessageUtil.ischeckSumValid(buf)) {
+//			return null;
+//		}
 		byte version = buf.get();
 		byte versionIndex = buf.get();
 		short cmd = buf.getShort();

@@ -41,6 +41,5 @@ public class CmdConstant {
 	public static final short RES_CHARGE_INFO = 201;
 	/** 应答上传未上传历史充电记录 */
 	public static final short RES_HISTORY_CHARGE_INFO = 401;
-	类型
 
 }

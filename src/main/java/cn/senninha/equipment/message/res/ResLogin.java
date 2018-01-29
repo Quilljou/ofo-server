@@ -25,6 +25,12 @@ public class ResLogin extends BaseMessage {
 	public void setBlank1(short blank1) {
 		this.blank1 = blank1;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "ResLogin{" +
+				"blank0=" + blank0 +
+				", blank1=" + blank1 +
+				'}';
+	}
 }

@@ -23,7 +23,8 @@ public class EncodeHandler extends ChannelOutboundHandlerAdapter {
 				BaseMessage message = (BaseMessage) msg;
 				ByteBuffer buffer = CodecFactory.getInstance().encode(message);
 				ByteBuf buf = ByteBufUtil.convert(buffer);
-				ctx.write(buf);
+				/*必须调用flush*/
+				ctx.writeAndFlush(buf);
 			} catch (Exception e) {
 				logger.error("发送报文出错:", e);
 			}

@@ -16,5 +16,32 @@ public class ReqEquipmentStatus extends BaseMessage {
 	private Field32Bytes equipmentId;
 	private short temperature;
 	private short humidity;
-
+	/*
+	*  j -- 绝缘
+	*  z -- 整流模块
+	* */
+	private short jmuxiandianya1;
+	private short jmuxiandianya2;
+	private short jzhengduididianzu1;
+	private short jzhengduididianzu2;
+	private short jfuduididianzu1;
+	private short jfuduididianzu2;
+	private byte z1zhuangtai;
+	private byte z2zhuangtai;
+	private short z1huanjingwendu;
+	private short z2huanjingwendu;
+	private short z1DCsanrewendu;
+	private short z1PFCsanrewendu;
+	private short z1fengshanzhuansu;
+	private short z1sanxiangdianya;
+	private short z1shuchudianya;
+	private short z1shuchudianliu;
+	private short z2DCsanrewendu;
+	private short z2PFCsanrewendu;
+	private short z2fengshanzhuansu;
+	private short z2sanxiangdianya;
+	private short z2shuchudianya;
+	private short z2shuchudianliu;
+	private short blank1;
+	private short blank2;
 }

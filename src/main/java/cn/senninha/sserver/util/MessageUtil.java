@@ -23,6 +23,10 @@ public class MessageUtil {
 		}
 		return (byte) (checkSum & 0xff);
 	}
+
+	public static Boolean ischeckSumValid(ByteBuffer buffer) {
+	    return checkSum(buffer,0,buffer.limit() - 1) == buffer.get(buffer.limit() - 1);
+    }
 	
 	/**
 	 * ascii转为string
@@ -49,6 +53,17 @@ public class MessageUtil {
 		}
 		return b;
 	}
+
+    /**
+     * 读出来的8字节二进制数转成十进制数后转成时间戳
+     * @param i
+     * @return
+     */
+	public static int decimalToTimeStatmp(Integer i) {
+	    
+	    return 0;
+    }
+
 
 	/**
 	 * int转化为对应位数的float

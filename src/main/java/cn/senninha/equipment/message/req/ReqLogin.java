@@ -2,6 +2,7 @@ package cn.senninha.equipment.message.req;
 
 import cn.senninha.equipment.message.CmdConstant;
 import cn.senninha.sserver.lang.codec.field.Field32Bytes;
+import cn.senninha.sserver.lang.codec.field.Time8Bytes;
 import cn.senninha.sserver.lang.message.BaseMessage;
 import cn.senninha.sserver.lang.message.Message;
 
@@ -29,74 +30,121 @@ public class ReqLogin extends BaseMessage {
 	/** 充电记录数字 */
 	private int chargeSize;
 	//当前充电桩系统时间
-	private long time;
+	private Time8Bytes time;
 	private long blank1;
+	private long blank2;
+
 	public short getBlank0() {
 		return blank0;
 	}
+
 	public void setBlank0(short blank0) {
 		this.blank0 = blank0;
 	}
+
 	public Field32Bytes getEquipmentId() {
 		return equipmentId;
 	}
+
 	public void setEquipmentId(Field32Bytes equipmentId) {
 		this.equipmentId = equipmentId;
 	}
+
 	public int getVersions() {
 		return versions;
 	}
+
 	public void setVersions(int versions) {
 		this.versions = versions;
 	}
+
 	public int getStartNum() {
 		return startNum;
 	}
+
 	public void setStartNum(int startNum) {
 		this.startNum = startNum;
 	}
+
 	public short getLoginInterval() {
 		return loginInterval;
 	}
+
 	public void setLoginInterval(short loginInterval) {
 		this.loginInterval = loginInterval;
 	}
-	public byte getConnector() {
+
+	public byte getConnectorNum() {
 		return connectorNum;
 	}
-	public void setConnector(byte connector) {
-		this.connectorNum = connector;
+
+	public void setConnectorNum(byte connectorNum) {
+		this.connectorNum = connectorNum;
 	}
+
 	public byte getHeartInterval() {
 		return heartInterval;
 	}
+
 	public void setHeartInterval(byte heartInterval) {
 		this.heartInterval = heartInterval;
 	}
+
 	public byte getHeartTimeOut() {
 		return heartTimeOut;
 	}
+
 	public void setHeartTimeOut(byte heartTimeOut) {
 		this.heartTimeOut = heartTimeOut;
 	}
+
 	public int getChargeSize() {
 		return chargeSize;
 	}
+
 	public void setChargeSize(int chargeSize) {
 		this.chargeSize = chargeSize;
 	}
-	public long getTime() {
+
+	public Time8Bytes getTime() {
 		return time;
 	}
-	public void setTime(long time) {
+
+	public void setTime(Time8Bytes time) {
 		this.time = time;
 	}
-	public long getBlank2() {
+
+	public long getBlank1() {
 		return blank1;
 	}
-	public void setBlank2(long blank2) {
-		this.blank1 = blank2;
+
+	public void setBlank1(long blank1) {
+		this.blank1 = blank1;
 	}
 
-	
+	public long getBlank2() {
+		return blank2;
+	}
+
+	public void setBlank2(long blank2) {
+		this.blank2 = blank2;
+	}
+
+	@Override
+	public String toString() {
+		return "ReqLogin{" +
+				"blank0=" + blank0 +
+				", equipmentId=" + equipmentId +
+				", versions=" + versions +
+				", startNum=" + startNum +
+				", loginInterval=" + loginInterval +
+				", connectorNum=" + connectorNum +
+				", heartInterval=" + heartInterval +
+				", heartTimeOut=" + heartTimeOut +
+				", chargeSize=" + chargeSize +
+				", time=" + time +
+				", blank1=" + blank1 +
+				", blank2=" + blank2 +
+				'}';
+	}
 }
