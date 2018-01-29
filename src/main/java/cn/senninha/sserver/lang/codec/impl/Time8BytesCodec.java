@@ -53,7 +53,6 @@ public class Time8BytesCodec implements Codec {
 			StringBuilder ts = new StringBuilder();
 			Time8Bytes time8 = new Time8Bytes();
 
-			buf.get();
 			byte[] byteArray1 = new byte[2];
 			byteArray1[0] = buf.get();
 			byteArray1[1] = buf.get();
@@ -85,6 +84,8 @@ public class Time8BytesCodec implements Codec {
 			byteArray4[0] = buf.get();
 			String s4 = byteArrayToHexStr(byteArray4);
 			ts.append(s4);
+
+			buf.get(); // 补位 0xFF
 
 			String s = ts.toString();
 			SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
