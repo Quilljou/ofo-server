@@ -38,8 +38,10 @@ public class ByteBufUtil {
 
 		//现在才flip
 		buffer.flip();
+    
 		int length = buffer.limit() + 4;
 		byte[] src = new byte[length];
+
 		src[0] = (byte) ((Constant.START & 0xff_00) >> 8);
 		src[1] = (byte) ((Constant.START & 0x00_ff));
 		src[3] = (byte) ((length & 0xff_00) >> 8);
