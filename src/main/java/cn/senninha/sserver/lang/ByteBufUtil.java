@@ -35,8 +35,8 @@ public class ByteBufUtil {
 		int length = buffer.limit();
 		byte[] src = new byte[4 + length];
 		/** 小端 */
-		src[1] = (byte) ((Constant.START & 0xff_00) >> 8);
-		src[0] = (byte) ((Constant.START & 0x00_ff));
+		src[0] = (byte) ((Constant.START & 0xff_00) >> 8);
+		src[1] = (byte) ((Constant.START & 0x00_ff));
 		src[3] = (byte) ((length & 0xff_00) >> 8);
 		src[2] = (byte) ((length & 0x00_ff));
 		for(int i = 4; i < src.length; i++) {
