@@ -12,8 +12,12 @@ public enum LoggerSystem {
 	NET,
 	/** 结算 */
 	CHECKOUT,
+	/** web接口访问日志 */
+	WEB_INTERFACE_ACCESS,
+	/** 系统初始化相关日志 */
+	SYSTEM_INIT,
 	;
-	
+
 	public Logger getLogger() {
 		return LoggerManager.getLogger(this);
 	}

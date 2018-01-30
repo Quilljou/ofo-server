@@ -15,4 +15,11 @@ public class Time8Bytes {
 	public void setB(String b) {
 		this.b = b;
 	}
+
+	@Override
+	public String toString() {
+		return "Time8Bytes{" +
+				"b='" + b + '\'' +
+				'}';
+	}
 }

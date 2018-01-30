@@ -67,7 +67,10 @@ public class DispatchHandler extends LengthFieldBasedFrameDecoder {
 						}
 					}
 				}
-//				HandleContext.getInstance().dispatch(1, message);
+				if(sessionId == null) {
+					logger.error("未握手的报文{}", message.toString());
+					return null;
+				}
 				HandlerFactory.getInstance().dispatch(message, sessionId);
 			}
 		}

@@ -5,6 +5,7 @@ import cn.senninha.sserver.lang.codec.field.Field32Bytes;
 import cn.senninha.sserver.lang.codec.field.Time8Bytes;
 import cn.senninha.sserver.lang.message.BaseMessage;
 import cn.senninha.sserver.lang.message.Message;
+import cn.senninha.sserver.util.MessageUtil;
 
 /**
  * 签到
@@ -134,7 +135,7 @@ public class ReqLogin extends BaseMessage {
 	public String toString() {
 		return "ReqLogin{" +
 				"blank0=" + blank0 +
-				", equipmentId=" + equipmentId +
+				", equipmentId=" + MessageUtil.byte32ChangeToString(equipmentId.getB())  +
 				", versions=" + versions +
 				", startNum=" + startNum +
 				", loginInterval=" + loginInterval +
@@ -142,7 +143,7 @@ public class ReqLogin extends BaseMessage {
 				", heartInterval=" + heartInterval +
 				", heartTimeOut=" + heartTimeOut +
 				", chargeSize=" + chargeSize +
-				", time=" + time +
+				", time=" + time.toString() +
 				", blank1=" + blank1 +
 				", blank2=" + blank2 +
 				'}';
