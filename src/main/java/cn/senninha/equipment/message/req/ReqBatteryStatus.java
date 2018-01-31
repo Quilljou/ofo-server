@@ -23,7 +23,7 @@ public class ReqBatteryStatus extends BaseMessage {
 	private long startTime;
 	private long stopTime;
 	/*充电时长, 单位min*/
-	private short timeLength;
+	private short duration;
 	/*充入容量*/
 	private short chargedCapacity;
 	private short startChargeCapacity;

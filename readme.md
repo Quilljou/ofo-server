@@ -1,3 +1,21 @@
+## 名词定义
+
+- 项目中文名 - 
+- 项目英文名 - 
+
+- 管理员 - admin
+- 电池 - battery
+- 充电仓 - station
+- 充电柜(桩) - equipment
+- 充电模块 - module
+- 整流模块 - rectification_module
+- 
+
+
+## 规范
+- 数据库表字段名使用下划线格式
+- 数量都用 count(比如module_count)
+
 ## Develop
 
 - 目前开发通信部分，直接运行serverStart.java 
