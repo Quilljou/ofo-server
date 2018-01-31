@@ -34,4 +34,13 @@ public class ReqHearbeat extends BaseMessage{
     public void setHeartIndex(short heartIndex) {
         this.heartIndex = heartIndex;
     }
+
+    @Override
+    public String toString() {
+        return "ReqHearbeat{" +
+                "blank0=" + blank0 +
+                ", equipmentId=" + equipmentId +
+                ", heartIndex=" + heartIndex +
+                "} " + super.toString();
+    }
 }
