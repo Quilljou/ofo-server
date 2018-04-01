@@ -67,7 +67,10 @@ public class DispatchHandler extends LengthFieldBasedFrameDecoder {
 						}
 					}
 				}
-//				HandleContext.getInstance().dispatch(1, message);
+				if(sessionId == null) {
+					logger.error("未握手的报文{}", message.toString());
+					return null;
+				}
 				HandlerFactory.getInstance().dispatch(message, sessionId);
 			}
 		}
@@ -76,11 +79,14 @@ public class DispatchHandler extends LengthFieldBasedFrameDecoder {
 
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		Integer sessionId = (Integer) (ctx.channel().attr(AttributeKey.valueOf("sessionId"))).get();
+		System.out.println((ctx.channel().attr(AttributeKey.valueOf("sessionId"))).get());
+		String sessionId = (String) (ctx.channel().attr(AttributeKey.valueOf("sessionId"))).get();
 		if (sessionId == null) {
 			logger.error("匿名连接掉线：{}", ctx.channel().remoteAddress().toString());
 		} else {
 			// TODO
+			ClientContainer clientContainer = ClientContainer.getInstance();
+			clientContainer.remove(sessionId);
 		}
 	}
 

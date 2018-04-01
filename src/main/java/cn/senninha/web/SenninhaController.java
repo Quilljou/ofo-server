@@ -8,6 +8,7 @@ import cn.senninha.equipment.container.PushHelper;
 import cn.senninha.equipment.container.client.Client;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,14 +19,11 @@ import java.util.List;
  * Coded by senninha on 18-1-22
  */
 @Controller
+@ResponseBody
 public class SenninhaController {
-    @RequestMapping(path = "/")
-    @ResponseBody
-    public List<Test> root(){
-        SqlSession session = DbManager.openSession(true);
-        TestDao dao = session.getMapper(TestDao.class);
-//        PushHelper.sendAllOL(new HelloMessage());
-        return dao.selectAll();
-    }
+  @GetMapping(value = "/")
+    public static final String index() {
+      return "hello world";
+  }
 
 }

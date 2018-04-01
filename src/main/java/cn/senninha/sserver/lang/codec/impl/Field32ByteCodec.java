@@ -20,7 +20,7 @@ public class Field32ByteCodec implements Codec {
 		try {
 			Field32Bytes bytes32 = new Field32Bytes();
 			byte[] b = new byte[32];
-			for(int i = 31 ; i >= 0 ; i--) {
+			for(int i = 0 ; i < 32 ; i++) {
 				b[i] = buf.get();
 			}
 			bytes32.setB(b);
@@ -28,7 +28,7 @@ public class Field32ByteCodec implements Codec {
 			f.set(m, bytes32);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+		}
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class Field32ByteCodec implements Codec {
 			f.setAccessible(true);
 			Field32Bytes bytes32 = (Field32Bytes) f.get(m);
 			byte[] b = bytes32.getB();
-			for(int i = 31 ; i >=  0 ; i--) {
+			for(int i = 0 ; i < 32 ; i++) {
 				buf.put(b[i]);
 			}
 		} catch(Exception e) {

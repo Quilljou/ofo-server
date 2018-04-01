@@ -10,9 +10,12 @@ import java.util.Map;
 import cn.senninha.sserver.lang.ClassFilter;
 import cn.senninha.sserver.lang.ClassUtil;
 import cn.senninha.sserver.lang.message.BaseMessage;
+import cn.senninha.sserver.logger.LoggerManager;
+import cn.senninha.sserver.logger.LoggerSystem;
+import org.slf4j.Logger;
 
 /**
- * 缓存业务handler的容器,单例子获取的时候会自动扫描获取所有的业务Handler({@link HelloHandler}
+ * 缓存业务handler的容器,单例子获取的时候会自动扫描获取所有的业务Handler({@link }
  * 
  * @author senninha on 2017年11月8日
  *
@@ -25,6 +28,7 @@ public class HandlerFactory {
 	private HandlerFactory() {
 		init();
 	}
+	private Logger logger = LoggerManager.getLogger(LoggerSystem.SYSTEM_INIT);
 
 	/**
 	 * 仅可以被构造函数调用
@@ -49,7 +53,7 @@ public class HandlerFactory {
 								Parameter[] params = m.getParameters();
 								if (!(params[0].getType() == String.class)
 										|| !(BaseMessage.class.isAssignableFrom(params[1].getType()))) {
-									System.err.println("业务Handler函数参数必须遵循(int,BaseMessage)的格式");
+									logger.error("业务Handler函数参数必须遵循(int,BaseMessage)的格式, 不符合的类为：{}", clazz.getSimpleName());
 								} else {
 									MessageInvokeWrapper miw = new MessageInvokeWrapper(obj, m);
 									invokeContainer.put(cmd, miw);
@@ -90,7 +94,7 @@ public class HandlerFactory {
 				e.printStackTrace();
 			}
 		}else{
-			System.err.println("没有该通信协议的业务Handler:" + message.toString());
+			logger.info("没有该通信协议的业务Handler:" + message.toString());
 		}
 	}
 
