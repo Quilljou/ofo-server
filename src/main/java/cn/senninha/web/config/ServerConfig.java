@@ -24,7 +24,7 @@ public class ServerConfig {
         try {
             String path = ServerConfig.class.getResource("/").toString();
             path = path.substring(path.indexOf(":") + 1);
-            File file = new File(path + "application.properties");
+            File file = new File(path + "netty.properties");
             if(!file.exists() || file.isDirectory()) {
                 System.err.println("配置文件读取错误" + file.getAbsolutePath());
                 System.exit(0);

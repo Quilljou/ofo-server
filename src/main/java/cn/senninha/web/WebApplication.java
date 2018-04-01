@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@EnableAutoConfiguration
 public class WebApplication {
 	public static void main(String[] args) {
 //	    if(args.length >= 1){   //随便输入一个参数启动tcp服务器

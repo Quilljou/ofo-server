@@ -8,11 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.senninha.sserver.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cn.senninha.equipment.message.res.ResStartCharge;
 import cn.senninha.sserver.handler.EncodeHandler;
 import cn.senninha.sserver.lang.ClassFilter;
 import cn.senninha.sserver.lang.ClassUtil;
@@ -36,19 +34,19 @@ public class CodecFactory {
 
 	private Logger logger = LoggerFactory.getLogger(EncodeHandler.class);
 	public static void main(String[] args) {
-		ResStartCharge res = new ResStartCharge();
-		Field32Bytes f32 = new Field32Bytes(); 
-		byte[] b = new byte[32];
-		b[13] = 12;
-		f32.setB(b);
-		res.setUserId(f32);
-		
-		ByteBuffer buf = CodecFactory.getInstance().encode(res);
-		buf.flip();
-		
-		res = (ResStartCharge) CodecFactory.getInstance().decode(buf);
-		
-		System.out.println(res.getUserId().getB()[13]);
+//		ResStartCharge res = new ResStartCharge();
+//		Field32Bytes f32 = new Field32Bytes();
+//		byte[] b = new byte[32];
+//		b[13] = 12;
+//		f32.setB(b);
+//		res.setUserId(f32);
+//
+//		ByteBuffer buf = CodecFactory.getInstance().encode(res);
+//		buf.flip();
+//
+//		res = (ResStartCharge) CodecFactory.getInstance().decode(buf);
+//
+//		System.out.println(res.getUserId().getB()[13]);
 	}
 
 	public static CodecFactory getInstance() {
