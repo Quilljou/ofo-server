@@ -44,4 +44,38 @@ public class ReqEquipmentStatus extends BaseMessage {
 	private short z2shuchudianliu;
 	private short blank1;
 	private short blank2;
+
+	@Override
+	public String toString() {
+		return "ReqEquipmentStatus{" +
+				"blank0=" + blank0 +
+				", equipmentId=" + equipmentId +
+				", temperature=" + temperature +
+				", humidity=" + humidity +
+				", jmuxiandianya1=" + jmuxiandianya1 +
+				", jmuxiandianya2=" + jmuxiandianya2 +
+				", jzhengduididianzu1=" + jzhengduididianzu1 +
+				", jzhengduididianzu2=" + jzhengduididianzu2 +
+				", jfuduididianzu1=" + jfuduididianzu1 +
+				", jfuduididianzu2=" + jfuduididianzu2 +
+				", z1zhuangtai=" + z1zhuangtai +
+				", z2zhuangtai=" + z2zhuangtai +
+				", z1huanjingwendu=" + z1huanjingwendu +
+				", z2huanjingwendu=" + z2huanjingwendu +
+				", z1DCsanrewendu=" + z1DCsanrewendu +
+				", z1PFCsanrewendu=" + z1PFCsanrewendu +
+				", z1fengshanzhuansu=" + z1fengshanzhuansu +
+				", z1sanxiangdianya=" + z1sanxiangdianya +
+				", z1shuchudianya=" + z1shuchudianya +
+				", z1shuchudianliu=" + z1shuchudianliu +
+				", z2DCsanrewendu=" + z2DCsanrewendu +
+				", z2PFCsanrewendu=" + z2PFCsanrewendu +
+				", z2fengshanzhuansu=" + z2fengshanzhuansu +
+				", z2sanxiangdianya=" + z2sanxiangdianya +
+				", z2shuchudianya=" + z2shuchudianya +
+				", z2shuchudianliu=" + z2shuchudianliu +
+				", blank1=" + blank1 +
+				", blank2=" + blank2 +
+				"} " + super.toString();
+	}
 }
