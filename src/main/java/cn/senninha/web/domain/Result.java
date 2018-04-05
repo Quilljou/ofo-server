@@ -1,34 +1,24 @@
 package cn.senninha.web.domain;
 
-public class Result<T> {
-    private Boolean success;
-    private Boolean isLogin;
+import cn.senninha.sserver.lang.message.Message;
+
+public class Result {
     private String message;
-    private T data;
-    private int code;
+    private Object data;
+    private int status;
+    private Object pagination;
 
-    public int getCode() {
-        return code;
+    public Result(Object data, String message, int status, Object pagination) {
+        this.message = message;
+        this.data = data;
+        this.status = status;
+        this.pagination = pagination;
     }
 
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public Boolean getSuccess() {
-        return success;
-    }
-
-    public void setSuccess(Boolean success) {
-        this.success = success;
-    }
-
-    public Boolean getLogin() {
-        return isLogin;
-    }
-
-    public void setLogin(Boolean login) {
-        isLogin = login;
+    public Result(Object data, String message, int status) {
+        this.message = message;
+        this.data = data;
+        this.status = status;
     }
 
     public String getMessage() {
@@ -39,21 +29,27 @@ public class Result<T> {
         this.message = message;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
 
-    @Override
-    public String toString() {
-        return "Result{" +
-                "success=" + success +
-                ", isLogin=" + isLogin +
-                ", message='" + message + '\'' +
-                ", data=" + data +
-                '}';
+    public int getstatus() {
+        return status;
+    }
+
+    public void setstatus(int status) {
+        this.status = status;
+    }
+
+    public Object getPagination() {
+        return pagination;
+    }
+
+    public void setPagination(Object pagination) {
+        this.pagination = pagination;
     }
 }
