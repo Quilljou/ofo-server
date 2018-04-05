@@ -3,33 +3,23 @@ package cn.senninha.web.util;
 import cn.senninha.web.domain.Result;
 
 public class resultUtil {
-    public static final Result sessionValid() {
-        Result result = fail("未登录");
-        result.setLogin(false);
-        return result;
-    }
+    // 普通结果成功
+  public static final Result success(Object data, Object pagintion) {
+      Result result = new Result(data, "success", 200, pagintion);
+      return result;
+  }
 
-    public static final Result success(Object T) {
-        Result result = new Result();
-        result.setLogin(true);
-        result.setSuccess(true);
-        result.setMessage("OK");
-        result.setData(T);
-        return result;
-    }
+  // 列表结果成功
+  public static final Result success(Object data) {
+      Result result = new Result(data, "success", 200);
+      return result;
+  }
 
-    public static final Result fail(String message) {
-        Result result = new Result();
-        result.setLogin(true);
-        result.setSuccess(false);
-        result.setMessage(message);
-        result.setData(null);
-        return result;
-    }
-
-    public static final Result fail(String message,int code) {
-        Result result = fail(message);
-        result.setCode(code);
-        return result;
-    }
+  // 失败
+  public static final Result fail(String message, int code) {
+      System.out.println(code);
+      Result result = new Result(null, message, code, null);
+      return result;
+  }
 }
+

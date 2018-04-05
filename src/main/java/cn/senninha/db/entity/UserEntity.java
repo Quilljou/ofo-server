@@ -6,7 +6,7 @@ import java.util.Date;
  * 管理员实体
  * Coded by senninha on 18-1-26
  */
-public class UserEnity {
+public class UserEntity {
     private int id;
     private String username;
     private String password;
@@ -82,7 +82,7 @@ public class UserEnity {
 
     @Override
     public String toString() {
-        return "UserEnity{" +
+        return "UserEntity{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
