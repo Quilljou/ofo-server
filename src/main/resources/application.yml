@@ -7,8 +7,11 @@ spring:
     driverClassName: com.mysql.jdbc.Driver
     username: root
     password:
-  messages:
-    encoding: UTF-8
+
+mybatis:
+  type-aliases-package: cn.senninha.db.entity
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml
 
 
 

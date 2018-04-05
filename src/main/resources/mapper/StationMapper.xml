@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.senninha.db.mapper.StationDao" >
+    <resultMap id="BaseResultMap" type="cn.senninha.db.entity.StationEntity" >
+        <id column="id" property="id"/>
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="location" property="location" jdbcType="VARCHAR" />
+        <result column="station_id" property="station_id" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="selectAll" resultMap="BaseResultMap"  >
+        SELECT
+        *
+        FROM station
+    </select>
+
+    <select id="selectOne" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+        SELECT * FROM station
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="cn.senninha.db.entity.StationEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO station (name,location,station_id)
+        VALUES (#{name}, #{location}, #{station_id})
+    </insert>
+
+    <update id="update" parameterType="cn.senninha.db.entity.StationEntity" >
+        UPDATE
+        station
+        SET
+        name = #{name},
+        location = #{location},
+        station_id = #{station_id}
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer" >
+        DELETE FROM
+        station
+        WHERE
+        id =#{id}
+    </delete>
+
+</mapper>
