@@ -19,7 +19,7 @@
         WHERE id = #{id}
     </select>
 
-    <insert id="insert" parameterType="cn.senninha.db.entity.StationEntity" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="cn.senninha.db.entity.StationEntity" keyProperty="id">
         INSERT INTO station (name,location,station_id)
         VALUES (#{name}, #{location}, #{station_id})
     </insert>

@@ -17,9 +17,14 @@ public class resultUtil {
 
   // 失败
   public static final Result fail(String message, int code) {
-      System.out.println(code);
       Result result = new Result(null, message, code, null);
       return result;
   }
+
+    // 失败
+    public static final Result fail(String message) {
+        Result result = new Result(null, message, 400, null);
+        return result;
+    }
 }
 
