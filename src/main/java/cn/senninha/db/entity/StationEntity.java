@@ -11,8 +11,8 @@ public class StationEntity {
     private String location;
 
     @Size(min=16, max=16, message = "站编码长度为16个字符")
-    @NotNull(message = "充电桩编码必填")
-    private String station_id;
+    @NotNull(message = "充电站编码必填")
+    private String stationCode;
 
     @NotNull(message = "充电站名称必填")
     private String name;
@@ -33,12 +33,12 @@ public class StationEntity {
         this.location = location;
     }
 
-    public String getStation_id() {
-        return station_id;
+    public String getStationCode() {
+        return stationCode;
     }
 
-    public void setStation_id(String station_id) {
-        this.station_id = station_id;
+    public void setStationCode(String stationCode) {
+        this.stationCode = stationCode;
     }
 
     public String getName() {
@@ -47,15 +47,5 @@ public class StationEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "StationEntity{" +
-                "id=" + id +
-                ", location='" + location + '\'' +
-                ", station_id='" + station_id + '\'' +
-                ", name='" + name + '\'' +
-                '}';
     }
 }

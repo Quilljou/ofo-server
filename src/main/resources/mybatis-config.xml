@@ -7,8 +7,13 @@
 
         <!-- 使用列标签替换列别名 默认:true -->
         <setting name="useColumnLabel" value="true"/>
+
+        <!-- 开启下划线转驼峰-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
+        <typeAlias type="cn.senninha.db.entity.EquipmentEntity" alias="Equipment"/>
+        <typeAlias type="cn.senninha.db.entity.StationEntity" alias="Station"/>
         <typeAlias alias="Integer" type="java.lang.Integer" />
         <typeAlias alias="Long" type="java.lang.Long" />
         <typeAlias alias="HashMap" type="java.util.HashMap" />
