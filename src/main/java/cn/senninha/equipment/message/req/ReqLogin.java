@@ -17,7 +17,7 @@ public class ReqLogin extends BaseMessage {
 	private short blank0;
 	private Field32Bytes equipmentId;
 	//	充电桩软件版本
-	private int versions;
+	private int softwareVersion;
 	/** 启动次数 */
 	private int startNum;
 	//	启动间隔时间
@@ -51,12 +51,12 @@ public class ReqLogin extends BaseMessage {
 		this.equipmentId = equipmentId;
 	}
 
-	public int getVersions() {
-		return versions;
+	public int getSoftwareVersion() {
+		return softwareVersion;
 	}
 
-	public void setVersions(int versions) {
-		this.versions = versions;
+	public void setSoftwareVersion(int softwareVersion) {
+		this.softwareVersion = softwareVersion;
 	}
 
 	public int getStartNum() {
@@ -136,7 +136,7 @@ public class ReqLogin extends BaseMessage {
 		return "ReqLogin{" +
 				"blank0=" + blank0 +
 				", equipmentId=" + MessageUtil.byte32ChangeToString(equipmentId.getB())  +
-				", versions=" + versions +
+				", versions=" + softwareVersion +
 				", startNum=" + startNum +
 				", loginInterval=" + loginInterval +
 				", connectorNum=" + connectorNum +

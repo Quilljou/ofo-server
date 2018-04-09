@@ -2,6 +2,7 @@ package cn.senninha.web.controller;
 
 import cn.senninha.db.entity.StationEntity;
 import cn.senninha.db.mapper.StationDao;
+import cn.senninha.web.consts.Project;
 import cn.senninha.web.domain.Result;
 import cn.senninha.web.service.StationService;
 import cn.senninha.web.util.resultUtil;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping(Project.API_PREFIX)
 public class StationController {
     @Autowired
     private StationService stationService;
@@ -22,10 +24,13 @@ public class StationController {
         return stationService.selectAll();
     }
 
-    @DeleteMapping("/stations/{id}")
-    public Result delete(@PathVariable int id) {
-        return stationService.delete(id);
-    }
+
+/*
+@DeleteMapping("/stations/{id}")
+public Result delete(@PathVariable int id) {
+return stationService.delete(id);
+}
+*/
 
     @PostMapping("/stations")
     public Result create(@Valid @RequestBody StationEntity station, BindingResult bindingResult) throws Exception{

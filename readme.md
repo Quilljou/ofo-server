@@ -9,7 +9,7 @@
 - 充电柜 - equipment
 - 充电模块 - module
 - 整流模块 - rectification_module
-- 
+- 编码 - code （不使用 id 是为了和数据库主键区分）
 
 
 ## 规范
