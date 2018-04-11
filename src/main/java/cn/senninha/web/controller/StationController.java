@@ -21,7 +21,8 @@ public class StationController {
 
     @GetMapping("/stations")
     public Result get() {
-        return stationService.selectAll();
+        System.out.println("请求所有");
+         return stationService.selectAll();
     }
 
 

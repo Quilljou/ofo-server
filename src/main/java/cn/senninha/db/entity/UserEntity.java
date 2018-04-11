@@ -10,11 +10,10 @@ public class UserEntity {
     private int id;
     private String username;
     private String password;
-    private String salt;
+    private String region;
     private Date lastLoginTime;
     private byte isRoot;
     private String phone;
-    private String rights;
 
     public String getUsername() {
         return username;
@@ -33,11 +32,11 @@ public class UserEntity {
     }
 
     public String getSalt() {
-        return salt;
+        return region;
     }
 
     public void setSalt(String salt) {
-        this.salt = salt;
+        this.region = salt;
     }
 
     public Date getLastLoginTime() {
@@ -64,13 +63,8 @@ public class UserEntity {
         this.phone = phone;
     }
 
-    public String getRights() {
-        return rights;
-    }
 
-    public void setRights(String rights) {
-        this.rights = rights;
-    }
+
 
     public int getId() {
         return id;
@@ -86,11 +80,10 @@ public class UserEntity {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", salt='" + salt + '\'' +
+                ", salt='" + region + '\'' +
                 ", lastLoginTime=" + lastLoginTime +
                 ", isRoot=" + isRoot +
                 ", phone='" + phone + '\'' +
-                ", rights='" + rights + '\'' +
                 '}';
     }
 }
