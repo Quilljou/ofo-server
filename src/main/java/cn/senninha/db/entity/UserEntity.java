@@ -1,5 +1,10 @@
 package cn.senninha.db.entity;
 
+import cn.senninha.web.enums.LoginEnum;
+import org.springframework.data.annotation.Id;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -7,15 +12,18 @@ import java.util.Date;
  * Coded by senninha on 18-1-26
  */
 public class UserEntity {
+    @Id
     private int id;
     private String username;
     private String password;
     private String region;
     private Date lastLoginTime;
-    private byte isRoot;
+    private int isRoot;
     private String phone;
 
+
     public String getUsername() {
+        LoginEnum.NOTNULL_USERNAME.getMsg();
         return username;
     }
 
@@ -31,12 +39,12 @@ public class UserEntity {
         this.password = password;
     }
 
-    public String getSalt() {
+    public String getRegion() {
         return region;
     }
 
-    public void setSalt(String salt) {
-        this.region = salt;
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public Date getLastLoginTime() {
@@ -47,11 +55,11 @@ public class UserEntity {
         this.lastLoginTime = lastLoginTime;
     }
 
-    public byte getIsRoot() {
+    public int getIsRoot() {
         return isRoot;
     }
 
-    public void setIsRoot(byte isRoot) {
+    public void setIsRoot(int isRoot) {
         this.isRoot = isRoot;
     }
 

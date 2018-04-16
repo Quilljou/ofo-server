@@ -1,11 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.senninha.db.mapper.UserDao" >
-
+    <resultMap id="userResultmap" type="User">
+        <id property="id" column="id"></id>
+        <result property="lastLoginTime" column="last_login_time" jdbcType="TIMESTAMP"/>
+        <result property="isRoot" column="is_root"></result>
+    </resultMap>
     <select id="selectAll" resultType="User"  >
         SELECT
-        *
+        id,
+        username,
+        region,
+        last_login_time,
+        is_root,
+        phone
         FROM user
+        WHERE is_root = 1
+    </select>
+    <select id="selectByWho" resultType="User"  >
+        SELECT
+        id,
+        username,
+        region,
+        last_login_time,
+        is_root,
+        phone
+        FROM user
+        WHERE is_root = 1
+        <choose>
+            <when  test="id != null">
+                AND phone like #{phone}
+            </when>
+            <when test="username != null">
+                AND username like #{username}
+            </when>
+            <when test="phone != null">
+                AND phone like #{phone}
+            </when>
+        </choose>
+
     </select>
 
     <select id="selectOne" parameterType="int" resultType="User" >
@@ -13,18 +46,43 @@
         WHERE id = #{id}
     </select>
 
+    <select id="selectByName" parameterType="User" resultType="User" >
+        SELECT * FROM user
+        WHERE username = #{username}
+    </select>
+
     <insert id="insert" parameterType="User" keyProperty="id">
-        INSERT INTO user (name,location,station_code)
-        VALUES (#{name}, #{location}, #{stationCode})
+        INSERT INTO user (username,password,region,is_root,phone)
+        VALUES (#{username}, #{password}, #{region}, 1, #{phone})
     </insert>
 
     <update id="update" parameterType="User" >
         UPDATE
         user
         SET
-        name = #{name},
-        location = #{location},
-        station_code = #{stationCode}
+        username = #{username},
+        password = #{password},
+        region = #{region},
+        phone = #{phone}
+
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="initAdmin" parameterType="User" >
+        INSERT INTO user (username,password,is_root)
+        VALUES (#{username}, #{password}, #{isRoot})
+    </update>
+
+    <select id="isInitedAdmin" resultType="User"  >
+        SELECT * FROM user
+        WHERE
+        is_root = #{isRoot}
+    </select>
+
+    <update id="updateLastLoginTime" parameterType="User" >
+        UPDATE user SET
+        last_login_time = #{lastLoginTime, jdbcType=TIMESTAMP}
         WHERE
         id = #{id}
     </update>
