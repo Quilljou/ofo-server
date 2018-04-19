@@ -4,12 +4,16 @@ import cn.senninha.db.entity.StationEntity;
 import cn.senninha.db.mapper.StationDao;
 import cn.senninha.web.consts.Project;
 import cn.senninha.web.domain.Result;
+import cn.senninha.web.exception.BadReqeuestException;
 import cn.senninha.web.service.StationService;
 import cn.senninha.web.util.resultUtil;
+import org.apache.ibatis.javassist.tools.web.BadHttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -24,6 +28,13 @@ public class StationController {
         return stationService.selectAll();
     }
 
+    @GetMapping("/stations/{id}")
+    public Result getById(
+            @PathVariable int id
+    ) {
+        return stationService.selectOne(id);
+    }
+
 
 /*
 @DeleteMapping("/stations/{id}")
@@ -36,7 +47,7 @@ return stationService.delete(id);
     public Result create(@Valid @RequestBody StationEntity station, BindingResult bindingResult) throws Exception{
         if(bindingResult.hasErrors()) {
             String message = bindingResult.getFieldError().getDefaultMessage();
-            throw new Exception(message);
+            throw new BadReqeuestException(message);
         }
         return stationService.insert(station);
     }

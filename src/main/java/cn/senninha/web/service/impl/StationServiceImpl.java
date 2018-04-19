@@ -3,6 +3,7 @@ package cn.senninha.web.service.impl;
 import cn.senninha.db.entity.StationEntity;
 import cn.senninha.db.mapper.StationDao;
 import cn.senninha.web.domain.Result;
+import cn.senninha.web.exception.BadReqeuestException;
 import cn.senninha.web.service.StationService;
 import cn.senninha.web.util.resultUtil;
 import org.slf4j.Logger;
@@ -49,12 +50,11 @@ public class StationServiceImpl implements StationService{
 
     @Override
     @Transactional
-    public Result insert(StationEntity station) {
+    public Result insert(StationEntity station) throws BadReqeuestException {
         try {
             stationDao.insert(station);
         } catch (DuplicateKeyException e) {
-
-            throw new RuntimeException("充电站编码重复");
+            throw new BadReqeuestException("充电站编码重复");
         } catch (Exception e) {
             logger.error(e.getMessage());
             throw new RuntimeException("创建充电站失败");
@@ -64,6 +64,7 @@ public class StationServiceImpl implements StationService{
     }
 
     @Override
+    @Deprecated
     public Result delete(int id) {
         try {
             stationDao.delete(id);
