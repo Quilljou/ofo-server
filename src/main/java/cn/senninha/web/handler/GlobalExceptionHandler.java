@@ -2,6 +2,7 @@ package cn.senninha.web.handler;
 
 import cn.senninha.web.domain.Result;
 import cn.senninha.web.exception.BadReqeuestException;
+import cn.senninha.web.exception.LoginException;
 import cn.senninha.web.exception.UnauthorizedException;
 import cn.senninha.web.util.resultUtil;
 import org.slf4j.Logger;
@@ -39,6 +40,13 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Result unAuthorized(UnauthorizedException e) {
         return resultUtil.fail(e.getMessage(), e.getStatus(), null);
+    }
+
+    @ExceptionHandler(value = LoginException.class)
+    //@ResponseStatus(HttpStatus.)
+    @ResponseBody
+    public Result login(LoginException e) {
+        return resultUtil.fail(e.getMessage(), e.getCode(), null);
     }
 
     @ExceptionHandler(value = NoPermissionException.class)
