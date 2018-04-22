@@ -4,6 +4,8 @@ import cn.senninha.web.domain.Result;
 import cn.senninha.web.exception.BadReqeuestException;
 import cn.senninha.web.exception.UnauthorizedException;
 import cn.senninha.web.util.resultUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,11 +14,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.naming.NoPermissionException;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolationException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    private Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
 
     @ExceptionHandler(value = NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -46,12 +48,13 @@ public class GlobalExceptionHandler {
         return resultUtil.fail(e.getMessage(), HttpStatus.FORBIDDEN.value(), null);
     }
 
-    @ExceptionHandler(value = Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ResponseBody
-    public Result defaultErrorHandler(HttpServletRequest request, Exception e) throws Exception {
-        return resultUtil.fail(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value(), null);
-    }
+//    @ExceptionHandler(value = Exception.class)
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    @ResponseBody
+//    public Result defaultErrorHandler(HttpServletRequest request, Exception e) throws Exception {
+//        logger.error(e.getMessage());
+//        return resultUtil.fail(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value(), null);
+//    }
 
 }
 
