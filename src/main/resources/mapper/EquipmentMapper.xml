@@ -16,6 +16,13 @@
         WHERE id = #{id}
     </select>
 
+    <select id="selectByStationIdAndEquipmentCode"  parameterType="map" resultType="Equipment">
+        SELECT
+        *
+        FROM equipment
+        WHERE station_id = #{stationId} AND equipment_code = #{equipmentCode}
+    </select>
+
 
     <insert id="insert" parameterType="Equipment" keyProperty="id">
         INSERT INTO equipment (name, station_id, module_count, equipment_code)
