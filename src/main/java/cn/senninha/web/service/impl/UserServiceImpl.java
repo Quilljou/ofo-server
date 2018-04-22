@@ -34,15 +34,16 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public Result update(UserEntity station) {
+    public Result update(UserEntity user) {
         try {
-            userDao.update(station);
+            userDao.update(user);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            throw new RuntimeException("更新充电站失败");
+            throw new RuntimeException("更新用户失败");
         }
-        UserEntity newStation = userDao.selectOne(station.getId());
-        return resultUtil.success(newStation);
+        UserEntity newUser = userDao.selectOne(user.getId());
+        newUser.setPassword(null);
+        return resultUtil.success(newUser);
     }
 
     @Override
@@ -88,9 +89,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Result selectByWho(UserEntity userEntity){
-        List<UserEntity> users = userDao.selectByWho(userEntity);
-        return resultUtil.success(users, null);
+    public Result selectById(int id){
+        List<UserEntity> user = userDao.selectById(id);
+        return resultUtil.success(user, null);
     }
 
 }

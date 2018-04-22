@@ -16,15 +16,9 @@ public class resultUtil {
   }
 
   // 失败
-  public static final Result fail(String message, int code) {
-      Result result = new Result(null, message, code, null);
+  public static final Result fail(String message, int status, Object data) {
+      Result result = new Result(data, message, status);
       return result;
   }
-
-    // 失败
-    public static final Result fail(String message) {
-        Result result = new Result(null, message, 400, null);
-        return result;
-    }
 }
 

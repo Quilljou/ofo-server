@@ -9,6 +9,6 @@ public interface UserDao extends CommonDao<UserEntity> {
     public int initAdmin(UserEntity userEntity);
     public UserEntity isInitedAdmin(int isRoot);
     public UserEntity selectByName(String username);
-    public List<UserEntity> selectByWho(UserEntity userEntity);
+    public List<UserEntity> selectById(int id);
 
 }

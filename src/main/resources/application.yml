@@ -3,10 +3,10 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/ofo-battery?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://119.28.84.111:3306/ofo-battery?useUnicode=true&characterEncoding=utf-8
     driverClassName: com.mysql.jdbc.Driver
     username: root
-    password:
+    password: ofotest
 
 mybatis:
   type-aliases-package: cn.senninha.db.entity

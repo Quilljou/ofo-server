@@ -13,5 +13,5 @@ public interface UserService {
     public void initAdmin(UserEntity user);
     public UserEntity isInitedAdmin(int isRoot);
     public UserEntity selectByName(String name);
-    public Result selectByWho(UserEntity user);
+    public Result selectById(int id);
 }
