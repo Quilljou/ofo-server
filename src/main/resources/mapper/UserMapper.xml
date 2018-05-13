@@ -1,27 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.senninha.db.mapper.UserDao" >
-    <resultMap id="userResultmap" type="User">
-        <id property="id" column="id"></id>
-        <result property="lastLoginTime" column="last_login_time" jdbcType="TIMESTAMP"/>
-        <result property="isRoot" column="is_root"></result>
-    </resultMap>
     <select id="selectAll" resultType="User"  >
         SELECT
         id,
         username,
-        region,
+        location,
         last_login_time,
         is_root,
         phone
         FROM user
-        WHERE is_root = 1
     </select>
     <select id="selectById" resultType="User"  >
         SELECT
         id,
         username,
-        region,
+        location,
         last_login_time,
         is_root,
         phone
@@ -35,7 +29,7 @@
         SELECT
          id,
         username,
-        region,
+        location,
         last_login_time,
         is_root,
         phone
@@ -47,18 +41,22 @@
         SELECT * FROM user
         WHERE username = #{username}
     </select>
+        <select id="getPasswordByUsername" parameterType="User" resultType="User" >
+            SELECT password FROM user
+            WHERE username = #{username}
+        </select>
 
     <insert id="insert" parameterType="User" keyProperty="id">
-        INSERT INTO user (username,password,region,is_root,phone)
-        VALUES (#{username}, #{password}, #{region}, 1, #{phone})
+        INSERT INTO user (username,password,location,is_root,phone)
+        VALUES (#{username}, #{password}, #{location}, 0, #{phone})
     </insert>
 
     <update id="update" parameterType="User" >
         UPDATE
         user
         <set>
-            <if test="region!=null">
-                region = #{region},
+            <if test="location!=null">
+                location = #{location},
             </if>
             <if test="phone!=null">
                 phone = #{phone},

@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-
 public class StationService {
     private Logger logger = LoggerFactory.getLogger(StationService.class);
 
@@ -33,7 +32,6 @@ public class StationService {
         return resultUtil.success(stationEntity);
     }
 
-    @Transactional
     public Result update(StationEntity station) {
         try {
             stationDao.update(station);
@@ -45,7 +43,6 @@ public class StationService {
         return resultUtil.success(newStation);
     }
 
-    @Transactional
     public Result insert(StationEntity station) throws BadReqeuestException {
         try {
             stationDao.insert(station);

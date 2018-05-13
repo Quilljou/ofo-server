@@ -34,7 +34,7 @@ public class CodecFactory {
 
 	private Logger logger = LoggerFactory.getLogger(EncodeHandler.class);
 	public static void main(String[] args) {
-//		ResStartCharge res = new ResStartCharge();
+//		 ResStartCharge res = new ResStartCharge();
 //		Field32Bytes f32 = new Field32Bytes();
 //		byte[] b = new byte[32];
 //		b[13] = 12;

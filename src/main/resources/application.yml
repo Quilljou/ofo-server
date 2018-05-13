@@ -7,11 +7,13 @@ spring:
     driverClassName: com.mysql.jdbc.Driver
     username: root
     password: ofotest
-
+  aop:
+    proxy-target-class: true
 mybatis:
   type-aliases-package: cn.senninha.db.entity
   config-location: classpath:mybatis-config.xml
   mapper-locations: classpath:mapper/*.xml
+
 
 
 
