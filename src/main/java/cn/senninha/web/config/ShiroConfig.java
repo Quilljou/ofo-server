@@ -9,8 +9,10 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -36,13 +38,27 @@ public class ShiroConfig {
         return new LifecycleBeanPostProcessor();
     }
 
+    @Bean
+    @DependsOn("lifecycleBeanPostProcessor")
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+        DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+        // 强制使用cglib，防止重复代理和可能引起代理出错的问题
+        // https://zhuanlan.zhihu.com/p/29161098
+        defaultAdvisorAutoProxyCreator.setProxyTargetClass(true);
+        return defaultAdvisorAutoProxyCreator;
+    }
+
     @Bean(name = "shiroFilter")
     public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
+
+        shiroFilterFactoryBean.setLoginUrl("/api/401");
+
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();
         // 配置不会被拦截的链接 顺序判断
         filterChainDefinitionMap.put("/api/login", "anon");
+        filterChainDefinitionMap.put("/api/401", "anon");
         filterChainDefinitionMap.put("/api/users", "authc, roles[root]");
         filterChainDefinitionMap.put("/api/users/**", "authc, roles[root]");
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了

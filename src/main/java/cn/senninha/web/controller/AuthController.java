@@ -5,6 +5,7 @@ import cn.senninha.web.consts.Project;
 import cn.senninha.web.consts.ResConstant;
 import cn.senninha.web.domain.Result;
 import cn.senninha.web.exception.BadReqeuestException;
+import cn.senninha.web.exception.UnauthorizedException;
 import cn.senninha.web.service.UserService;
 import cn.senninha.web.util.encrymd5;
 import cn.senninha.web.util.resultUtil;
@@ -24,7 +25,7 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping(Project.API_PREFIX)
-public class LoginController {
+public class AuthController {
     @Autowired
     private UserService userService;
 
@@ -51,7 +52,7 @@ public class LoginController {
             String user = (String) currentUser.getPrincipal();
             if (user == null) throw new AuthenticationException();
             //返回登录用户的信息给前台，含用户的所有角色和权限
-            return resultUtil.success(null);
+            return resultUtil.success(userEntity);
         } catch ( UnknownAccountException uae ) {
             throw new BadReqeuestException(ResConstant.PASSWORD_ERROR);
         } catch ( IncorrectCredentialsException ice ) {
@@ -69,11 +70,18 @@ public class LoginController {
         return resultUtil.success(null);
     }
 
-    @PutMapping("/self")
-    public Result allUpdateSelf(@RequestBody UserEntity user,HttpServletRequest request) throws Exception{
-        HttpSession session = request.getSession();
-        int userId = (int) session.getAttribute("id");
-        return userService.selectById(userId);
+    @GetMapping("/self")
+    public Result allUpdateSelf() throws Exception{
+        Subject currentUser = SecurityUtils.getSubject();
+        String username = (String) currentUser.getPrincipal();
+        UserEntity userEntity = userService.selectByName(username);
+        userEntity.setPassword(null);
+        return resultUtil.success(userEntity);
+    }
+
+    @GetMapping("/401")
+    public Result unauthenticed() throws UnauthorizedException{
+        throw new UnauthorizedException(ResConstant.UNLOGIN);
     }
 
 }
