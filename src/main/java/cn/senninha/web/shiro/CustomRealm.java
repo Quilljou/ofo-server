@@ -22,7 +22,6 @@ public class CustomRealm extends AuthorizingRealm{
         String username = (String) super.getAvailablePrincipal(principalCollection);
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         UserEntity userEntity = userService.selectByName(username);
-        System.out.println(userEntity.toString());
         if(userEntity.getIsRoot() == true) {
             Set<String> role = new HashSet<>();
             role.add("root");
