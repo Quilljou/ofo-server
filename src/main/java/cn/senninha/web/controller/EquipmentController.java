@@ -5,6 +5,7 @@ import cn.senninha.web.consts.Project;
 import cn.senninha.web.domain.Result;
 import cn.senninha.web.exception.BadReqeuestException;
 import cn.senninha.web.service.EquipmentService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

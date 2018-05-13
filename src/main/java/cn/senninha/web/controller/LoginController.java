@@ -2,22 +2,24 @@ package cn.senninha.web.controller;
 
 import cn.senninha.db.entity.UserEntity;
 import cn.senninha.web.consts.Project;
+import cn.senninha.web.consts.ResConstant;
 import cn.senninha.web.domain.Result;
-import cn.senninha.web.enums.LoginEnum;
-import cn.senninha.web.exception.LoginException;
+import cn.senninha.web.exception.BadReqeuestException;
 import cn.senninha.web.service.UserService;
 import cn.senninha.web.util.encrymd5;
 import cn.senninha.web.util.resultUtil;
-import io.netty.util.internal.StringUtil;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.*;
+import org.apache.shiro.subject.Subject;
+import org.springframework.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import com.mysql.jdbc.StringUtils;
 
 import java.util.Date;
+import java.util.HashMap;
 
 
 @RestController
@@ -28,44 +30,50 @@ public class LoginController {
 
 
     @PostMapping("/login")
-    public Result login2(@RequestBody UserEntity user,HttpServletRequest request) throws Exception{
-        return login(user,request);
-    }
-    public Result login(UserEntity user,HttpServletRequest request){
-        if(StringUtils.isEmptyOrWhitespaceOnly(user.getUsername())){
-            throw new LoginException(LoginEnum.NOTNULL_USERNAME);
+    public Result login(String username, String password) throws BadReqeuestException {
+        if(StringUtils.isEmpty(username)){
+            throw new BadReqeuestException(ResConstant.NOTNULL_USERNAME);
         }
-        if (StringUtils.isEmptyOrWhitespaceOnly(user.getPassword())){
-            throw new LoginException(LoginEnum.NOTNULL_PASSWORD);
+        if (StringUtils.isEmpty(password)){
+            throw new BadReqeuestException(ResConstant.NOTNULL_PASSWORD);
         }
 
-        UserEntity userEntity = userService.selectByName(user.getUsername());
+        UserEntity userEntity = userService.selectByName(username);
         //当没有查找到这个用户时，返回错误信息
-        if(userEntity==null) {
-            throw new LoginException(LoginEnum.NO_USER);
+        if(userEntity == null) {
+            throw new BadReqeuestException(ResConstant.NO_USER);
         }
-        System.out.println(user.getPassword());
-        String password = encrymd5.md5Password(user.getPassword());
-        // 验证密码是否正确
-        if(userEntity.getPassword().equals(password)){
-            HttpSession session = request.getSession();
-            session.setMaxInactiveInterval(Project.MAXSESSIONTIME);
-            session.setAttribute("isRoot",userEntity.getIsRoot());
-            session.setAttribute("id",userEntity.getId());
-            userEntity.setLastLoginTime(new Date());
-            userService.updateLastLoginTime(userEntity);
-            userEntity.setPassword(null);
-            return resultUtil.success(userEntity);
-        }else{
-            throw new LoginException(LoginEnum.PASSWORD_ERROR);
+        Subject currentUser = SecurityUtils.getSubject();
+        try {
+            //登录
+            currentUser.login( new UsernamePasswordToken(username, encrymd5.md5Password(password)) );
+            //从session取出用户信息
+            String user = (String) currentUser.getPrincipal();
+            if (user == null) throw new AuthenticationException();
+            //返回登录用户的信息给前台，含用户的所有角色和权限
+            return resultUtil.success(null);
+        } catch ( UnknownAccountException uae ) {
+            throw new BadReqeuestException(ResConstant.PASSWORD_ERROR);
+        } catch ( IncorrectCredentialsException ice ) {
+            throw new BadReqeuestException("用户帐号或密码不正确");
+        } catch ( AuthenticationException ae ) {
+            throw new BadReqeuestException("登录出错");
         }
+
     }
 
-    @PostMapping("/loginout")
-    public Result loginout(HttpServletRequest request) throws Exception {
-        HttpSession session = request.getSession();
-        session.invalidate();
+    @PostMapping("/logout")
+    public Result logout() {
+        Subject currentUser = SecurityUtils.getSubject();
+        currentUser.logout();
         return resultUtil.success(null);
+    }
+
+    @PutMapping("/self")
+    public Result allUpdateSelf(@RequestBody UserEntity user,HttpServletRequest request) throws Exception{
+        HttpSession session = request.getSession();
+        int userId = (int) session.getAttribute("id");
+        return userService.selectById(userId);
     }
 
 }

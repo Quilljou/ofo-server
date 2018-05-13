@@ -5,6 +5,7 @@ import cn.senninha.web.consts.Project;
 import cn.senninha.web.domain.Result;
 import cn.senninha.web.exception.BadReqeuestException;
 import cn.senninha.web.service.StationService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,6 @@ public class StationController {
 
     @GetMapping("/stations")
     public Result get() {
-        System.out.println("请求所有");
          return stationService.selectAll();
     }
 

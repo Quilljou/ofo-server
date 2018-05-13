@@ -1,6 +1,5 @@
 package cn.senninha.db.entity;
 
-import cn.senninha.web.enums.LoginEnum;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotNull;
@@ -14,16 +13,24 @@ import java.util.Date;
 public class UserEntity {
     @Id
     private int id;
+    @NotNull(message = "用户名不能为空")
     private String username;
+    @NotNull(message = "密码不能为空")
     private String password;
-    private String region;
+    private String location;
     private Date lastLoginTime;
-    private int isRoot;
+    private Boolean isRoot;
     private String phone;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getUsername() {
-        LoginEnum.NOTNULL_USERNAME.getMsg();
         return username;
     }
 
@@ -39,13 +46,14 @@ public class UserEntity {
         this.password = password;
     }
 
-    public String getRegion() {
-        return region;
+    public String getLocation() {
+        return location;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
+    public void setLocation(String location) {
+        this.location = location;
     }
+
 
     public Date getLastLoginTime() {
         return lastLoginTime;
@@ -55,12 +63,12 @@ public class UserEntity {
         this.lastLoginTime = lastLoginTime;
     }
 
-    public int getIsRoot() {
+    public Boolean getIsRoot() {
         return isRoot;
     }
 
-    public void setIsRoot(int isRoot) {
-        this.isRoot = isRoot;
+    public void setIsRoot(Boolean root) {
+        isRoot = root;
     }
 
     public String getPhone() {
@@ -69,29 +77,5 @@ public class UserEntity {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", salt='" + region + '\'' +
-                ", lastLoginTime=" + lastLoginTime +
-                ", isRoot=" + isRoot +
-                ", phone='" + phone + '\'' +
-                '}';
     }
 }

@@ -1,14 +1,15 @@
 package cn.senninha.web.exception;
 
+import cn.senninha.web.consts.ResConstant;
 import org.springframework.http.HttpStatus;
 
 public class BadReqeuestException extends Exception{
     String message;
     int status;
 
-    public BadReqeuestException(String message, int status){
-        this.message = message;
-        this.status = status;
+    public BadReqeuestException(ResConstant resConstant){
+        this.message = resConstant.getMsg();
+        this.status = resConstant.getCode();
     }
 
     public BadReqeuestException(String message){

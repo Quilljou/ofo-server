@@ -35,4 +35,8 @@ public class encrymd5 {
         }
 
     }
+
+    public static void main(String[] args) throws Exception {
+        System.out.println(md5Password("123456"));
+    }
 }

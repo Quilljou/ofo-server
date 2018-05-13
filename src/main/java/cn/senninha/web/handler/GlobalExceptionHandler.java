@@ -2,7 +2,6 @@ package cn.senninha.web.handler;
 
 import cn.senninha.web.domain.Result;
 import cn.senninha.web.exception.BadReqeuestException;
-import cn.senninha.web.exception.LoginException;
 import cn.senninha.web.exception.UnauthorizedException;
 import cn.senninha.web.util.resultUtil;
 import org.slf4j.Logger;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.naming.NoPermissionException;
+import javax.security.auth.login.LoginException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -42,12 +42,6 @@ public class GlobalExceptionHandler {
         return resultUtil.fail(e.getMessage(), e.getStatus(), null);
     }
 
-    @ExceptionHandler(value = LoginException.class)
-    //@ResponseStatus(HttpStatus.)
-    @ResponseBody
-    public Result login(LoginException e) {
-        return resultUtil.fail(e.getMessage(), e.getCode(), null);
-    }
 
     @ExceptionHandler(value = NoPermissionException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)

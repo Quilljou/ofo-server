@@ -46,7 +46,6 @@ public class EquipmentService {
         return resultUtil.success(equipmentEntity);
     }
 
-    @Transactional
     public Result insert(EquipmentEntity equipmentEntity) throws BadReqeuestException{
         // 查询该编码在该站下是否重复了
         int stationId = equipmentEntity.getStationId();

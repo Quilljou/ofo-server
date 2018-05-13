@@ -1,6 +1,6 @@
-package cn.senninha.web.enums;
+package cn.senninha.web.consts;
 
-public enum LoginEnum {
+public enum ResConstant {
     UNLOGIN("您还未登录",401),
     UNKNOW_ERROR("未知错误，请联系管理员",500),
     PASSWORD_ERROR("密码错误",400),
@@ -17,7 +17,7 @@ public enum LoginEnum {
     private  Integer code;
     private String msg;
 
-    LoginEnum(String msg, Integer code ) {
+    ResConstant(String msg, Integer code ) {
         this.code = code;
         this.msg = msg;
     }
