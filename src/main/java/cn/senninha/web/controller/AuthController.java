@@ -3,6 +3,7 @@ package cn.senninha.web.controller;
 import cn.senninha.db.entity.UserEntity;
 import cn.senninha.web.consts.Project;
 import cn.senninha.web.consts.ResConstant;
+import cn.senninha.web.domain.RequestLoginBean;
 import cn.senninha.web.domain.Result;
 import cn.senninha.web.exception.BadReqeuestException;
 import cn.senninha.web.exception.UnauthorizedException;
@@ -23,15 +24,19 @@ import java.util.Date;
 import java.util.HashMap;
 
 
+
 @RestController
 @RequestMapping(Project.API_PREFIX)
 public class AuthController {
     @Autowired
     private UserService userService;
 
-
     @PostMapping("/login")
-    public Result login(String username, String password) throws BadReqeuestException {
+    public Result login(
+            @RequestBody RequestLoginBean requestLoginBean
+    ) throws BadReqeuestException {
+        String username = requestLoginBean.getUsername();
+        String password = requestLoginBean.getPassword();
         if(StringUtils.isEmpty(username)){
             throw new BadReqeuestException(ResConstant.NOTNULL_USERNAME);
         }
@@ -52,6 +57,7 @@ public class AuthController {
             String user = (String) currentUser.getPrincipal();
             if (user == null) throw new AuthenticationException();
             //返回登录用户的信息给前台，含用户的所有角色和权限
+            userEntity.setPassword(null);
             return resultUtil.success(userEntity);
         } catch ( UnknownAccountException uae ) {
             throw new BadReqeuestException(ResConstant.PASSWORD_ERROR);
