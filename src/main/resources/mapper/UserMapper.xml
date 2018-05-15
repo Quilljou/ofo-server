@@ -11,7 +11,9 @@
         phone
         FROM user
     </select>
-    <select id="selectById" resultType="User"  >
+
+
+    <select id="selectOne" resultType="User"  >
         SELECT
         id,
         username,
@@ -21,25 +23,13 @@
         phone
         FROM user
         WHERE id = #{id}
-
-
     </select>
 
-    <select id="selectOne" parameterType="int" resultType="User" >
-        SELECT
-         id,
-        username,
-        location,
-        last_login_time,
-        is_root,
-        phone
-        FROM user
-        WHERE id = #{id}
-    </select>
 
-    <select id="selectByName" parameterType="User" resultType="User" >
-        SELECT * FROM user
-        WHERE username = #{username}
+    <select id="selectByName"  resultType="User" >
+        SELECT user.*, station.id as station_id
+        FROM user LEFT OUTER JOIN station on user.id = station.admin_id
+        WHERE user.username = #{username}
     </select>
         <select id="getPasswordByUsername" parameterType="User" resultType="User" >
             SELECT password FROM user

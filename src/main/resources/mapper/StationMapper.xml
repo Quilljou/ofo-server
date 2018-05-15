@@ -29,6 +29,16 @@
         id = #{id}
     </update>
 
+    <update id="bindUser"  parameterType="map" keyProperty="id">
+        UPDATE
+        station
+        SET
+        admin_id = #{userId}
+        WHERE
+        id = #{stationId}
+    </update>
+
+
     <delete id="delete" parameterType="int" >
         DELETE FROM
         station

@@ -21,6 +21,15 @@ public class UserEntity {
     private Date lastLoginTime;
     private Boolean isRoot;
     private String phone;
+    private int stationId;
+
+    public int getStationId() {
+        return stationId;
+    }
+
+    public void setStationId(int stationId) {
+        this.stationId = stationId;
+    }
 
     public int getId() {
         return id;

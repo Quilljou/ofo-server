@@ -1,7 +1,9 @@
 package cn.senninha.web.service;
 
 import cn.senninha.db.entity.StationEntity;
+import cn.senninha.db.entity.UserEntity;
 import cn.senninha.db.mapper.StationDao;
+import cn.senninha.db.mapper.UserDao;
 import cn.senninha.web.domain.Result;
 import cn.senninha.web.exception.BadReqeuestException;
 import cn.senninha.web.util.resultUtil;
@@ -10,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,8 +21,7 @@ public class StationService {
 
     @Autowired
     private StationDao stationDao;
-    // TODO: 08/04/2018 超级管理员返回站列表，普通管理员返回所在站的信息，统一列表返回
-
+    @Autowired UserDao userDao;
     public Result selectAll() {
         List<StationEntity> stations = stationDao.selectAll();
         return resultUtil.success(stations, null);
@@ -70,5 +70,21 @@ public class StationService {
     public Boolean isStationExisted(int stationId) {
         StationEntity stationEntity = stationDao.selectOne(stationId);
         return stationEntity != null;
+    }
+
+    public Result bindUser(int stationId, int userId) throws BadReqeuestException{
+        UserEntity userEntity = userDao.selectOne(userId);
+        if(userEntity == null) {
+            throw new BadReqeuestException("该用户不存在");
+        }
+        if(isStationExisted(stationId) == false) {
+            throw new BadReqeuestException("该充电站不存在");
+        }
+        try {
+            stationDao.bindUser(stationId, userId);
+            return resultUtil.success(null);
+        }catch (Exception e) {
+            throw new RuntimeException("充电站绑定用户失败");
+        }
     }
 }
