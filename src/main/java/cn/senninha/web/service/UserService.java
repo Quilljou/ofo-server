@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -53,7 +52,7 @@ public class UserService {
             userDao.delete(id);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            throw new RuntimeException("删除充电站失败：");
+            throw new RuntimeException("删除充电站失败");
         }
         return resultUtil.success(null);
     }
@@ -63,28 +62,8 @@ public class UserService {
         return resultUtil.success(null);
     }
 
-    public void initAdmin(UserEntity user) {
-        userDao.initAdmin(user);
-    }
-
-    public UserEntity isInitedAdmin(int isRoot){
-        UserEntity admin = userDao.isInitedAdmin(isRoot);
-        return  admin;
-    }
-
     public UserEntity selectByName(String username) {
         return userDao.selectByName(username);
     }
-
-    public Result selectById(int id){
-        List<UserEntity> user = userDao.selectById(id);
-        return resultUtil.success(user, null);
-    }
-
-    public String getPasswordByUsername(String username) {
-        return userDao.getPasswordByUsername(username).getPassword();
-    }
-
-
 }
 

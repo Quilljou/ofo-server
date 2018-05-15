@@ -2,6 +2,7 @@ package cn.senninha.web.handler;
 
 import cn.senninha.web.domain.Result;
 import cn.senninha.web.exception.BadReqeuestException;
+import cn.senninha.web.exception.UnauthenticatedException;
 import cn.senninha.web.exception.UnauthorizedException;
 import cn.senninha.web.util.resultUtil;
 import org.slf4j.Logger;
@@ -35,20 +36,21 @@ public class GlobalExceptionHandler {
         return resultUtil.fail(e.getMessage(), e.getStatus(), null);
     }
 
-    @ExceptionHandler(value = UnauthorizedException.class)
+    @ExceptionHandler(value = UnauthenticatedException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
-    public Result unAuthorized(UnauthorizedException e) {
+    public Result unAuthorized(UnauthenticatedException e) {
         return resultUtil.fail(e.getMessage(), e.getStatus(), null);
     }
 
-
-    @ExceptionHandler(value = NoPermissionException.class)
+    // 垃圾 shiro 控制器上检查权限后抛出的异常不会自己处理？
+    @ExceptionHandler({UnauthorizedException.class,org.apache.shiro.authz.UnauthorizedException.class})
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
     public Result forbidden(Exception e) {
-        return resultUtil.fail(e.getMessage(), HttpStatus.FORBIDDEN.value(), null);
+        return resultUtil.fail("无权访问", HttpStatus.FORBIDDEN.value(), null);
     }
+
 
 //    @ExceptionHandler(value = Exception.class)
 //    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

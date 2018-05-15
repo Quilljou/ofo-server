@@ -3,18 +3,18 @@ package cn.senninha.web.exception;
 import cn.senninha.web.consts.ResConstant;
 import org.springframework.http.HttpStatus;
 
-public class UnauthorizedException extends Exception{
+public class UnauthenticatedException extends Exception{
     String message;
     int status;
 
-    public UnauthorizedException(ResConstant resConstant){
+    public UnauthenticatedException(ResConstant resConstant){
         this.message = resConstant.getMsg();
         this.status = resConstant.getCode();
     }
 
-    public UnauthorizedException(String message){
+    public UnauthenticatedException(String message){
         this.message = message;
-        this.status = HttpStatus.FORBIDDEN.value();
+        this.status = HttpStatus.UNAUTHORIZED.value();
     }
 
     @Override

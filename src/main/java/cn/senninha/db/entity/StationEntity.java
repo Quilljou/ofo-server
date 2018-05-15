@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class StationEntity {
+public class StationEntity{
     @Id
     private Integer id;
     private String location;
@@ -16,6 +16,7 @@ public class StationEntity {
 
     @NotNull(message = "充电站名称必填")
     private String name;
+    private int adminId;
 
     public Integer getId() {
         return id;
@@ -47,5 +48,13 @@ public class StationEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(int adminId) {
+        this.adminId = adminId;
     }
 }

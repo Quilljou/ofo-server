@@ -6,6 +6,7 @@ import cn.senninha.web.consts.ResConstant;
 import cn.senninha.web.domain.RequestLoginBean;
 import cn.senninha.web.domain.Result;
 import cn.senninha.web.exception.BadReqeuestException;
+import cn.senninha.web.exception.UnauthenticatedException;
 import cn.senninha.web.exception.UnauthorizedException;
 import cn.senninha.web.service.UserService;
 import cn.senninha.web.util.encrymd5;
@@ -56,6 +57,8 @@ public class AuthController {
             //从session取出用户信息
             String user = (String) currentUser.getPrincipal();
             if (user == null) throw new AuthenticationException();
+            userEntity.setLastLoginTime(new Date());
+            userService.updateLastLoginTime(userEntity);
             //返回登录用户的信息给前台，含用户的所有角色和权限
             userEntity.setPassword(null);
             return resultUtil.success(userEntity);
@@ -85,9 +88,14 @@ public class AuthController {
         return resultUtil.success(userEntity);
     }
 
-    @GetMapping("/401")
-    public Result unauthenticed() throws UnauthorizedException{
-        throw new UnauthorizedException(ResConstant.UNLOGIN);
+    @RequestMapping("/401")
+    public Result unauthenticed() throws UnauthenticatedException{
+        throw new UnauthenticatedException(ResConstant.UNLOGIN);
+    }
+
+    @RequestMapping("/403")
+    public Result unauthorized() throws UnauthorizedException{
+        throw new UnauthorizedException(ResConstant.NOT_ADMIN);
     }
 
 }

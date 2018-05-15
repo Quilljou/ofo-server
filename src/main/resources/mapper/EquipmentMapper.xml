@@ -16,6 +16,12 @@
         WHERE id = #{id}
     </select>
 
+    <select id="selectDetail" parameterType="int" resultType="cn.senninha.db.entity.EquipmentStationEntity" >
+        SELECT equipment.*, station.name as station_name, station.station_code
+        FROM equipment  left outer join station on equipment.station_id = station.id
+        WHERE equipment.id = #{id}
+    </select>
+
     <select id="selectByStationIdAndEquipmentCode"  parameterType="map" resultType="Equipment">
         SELECT
         *
